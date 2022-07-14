@@ -28,7 +28,7 @@ runs = []
 current = ""
 start = 0
 numWords = 10
-fName = ""
+fName = "python"
 best = [0, 0, 0, 0, 0]
 
 """
