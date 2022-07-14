@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/style.css') }}">
+</head>
+<body style="">
+<div id="mainCont">
+    <form method="post" action="/">
+        <div id="fNameDiv">Словарь: {% if active %} <select name="fName" id="fName">{% else %} <select name="fName" id="fNameDisabled" disabled> {% endif %}
+            <optgroup label="Обычный">
+                <option value="python" selected="selected">Python</option>
+                <option value="pascal">Pascal</option>
+                <option value="cpp">C++</option>
+                <option value="java">Java</option>
+            </optgroup>
+            <optgroup label="Усложненный">
+                <option value="python+">Python</option>
+                <option value="cpp+">C++</option>
+            </optgroup>
+        </select></div>
+        <div id="numWordsDiv">Количество строк: {% if active %} <input type="text" name="numWords" id="numWords" checked="checked" value="10"> {% else %} <input type="text" name="numWords" id="numWordsDisabled" checked="checked" value="10" disabled> {% endif %}
+        </div>
+        <input type="submit" value="Начать!" onclick="" id="start"></form>
+
+    {% block content %}
+    {% if current %}
+    {% for run in runs %}
+    <div class="run">
+        <div class="sample"><pre class="sample">{{ run[0] }}</pre>&nbsp;</div>
+        <div class="ouf {{ run[4] }}">{% for type, value in run[1] %}<pre class="{{ type }}">{{ value }}</pre>{% endfor %}&nbsp;</div>
+        <div class="time {{ run[4] }}">{{ run[2] }} секунд</div>
+        <div class="speed {{ run[4] }}">{{ run[3] }} символов/мин</div>
+    </div>
+    {% endfor %}
+    <div class="run" id="current">
+        <div class="sample">
+            <pre class="sample">{{ current }}</pre>
+        </div>
+        <form method="post" action="/" name="inputform" id="inputform">
+            <input type="text" name="input" id="input" onpaste="return false;" autocomplete="off">
+        </form>
+        <script>
+            window.onload = function () {
+                document.getElementById("input").focus();
+            };
+        </script>
+        <script>
+            document.getElementById("inputform").addEventListener("submit", event => event.preventDefault(); event.stopPropagation();
+            document.getElementById("input").addEventListener("submit", event => event.preventDefault(); event.stopPropagation();
+        </script>
+        <div class="time" id="time"></div>
+        <div class="speed" id="speed"></div>
+
+    </div>
+    {% elif runs %}
+    {% for run in runs %}
+    <div class="run">
+        <div class="sample"><pre class="sample">{{ run[0] }}</pre>&nbsp;</div>
+        <div class="ouf {{ run[4] }}">{% for type, value in run[1] %}<pre class="{{ type }}">{{ value }}</pre>{% endfor %}&nbsp;</div>
+        <div class="time {{ run[4] }}">{{ run[2] }} секунд</div>
+        <div class="speed {{ run[4] }}">{{ run[3] }} символов/мин</div>
+    </div>
+    {% endfor %}
+    <div class="final">
+        <div class="last" style="float: left;">Последний результат: <br>Правильных строк: {{ result[0] }}<br>Строк с
+            ошибками: {{ result[1] }}<br>Общая длина: {{ result[2] }}<br>Общее время: {{ result[3] }} с<br>Средняя
+            скорость: {{ result[4] }} символов/мин<br></div>
+        <div class="best" style="float: right">Лучший результат: <br>Правильных строк: {{ best[0] }}<br>Строк с
+            ошибками: {{ best[1] }}<br>Общая длина: {{ best[2] }}<br>Общее время: {{ best[3] }} с<br>Средняя
+            скорость: {{ best[4] }} символов/мин<br></div>
+    </div>
+    <form method="post" action="/"> <input type="submit" value="Повторить" onclick="" id="start"> </form>
+    {% endif %}
+    {% endblock %}
+    <br><br><br><br><br><br><br><br>Тут типа таблица лидеров. Когда-то будет.
+</div>
+<div id="footer"><p>2022 Vitness</p>
+    <p>Contact me in Discord: <a
+            href="https://discordapp.com/users/656919778572632094">Vitness#5633</a>
+    <p><a href="https://github.com/VitnessYT">https://github.com/VitnessYT</a></p></div>
+</body>
+</html>
