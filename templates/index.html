@@ -22,7 +22,40 @@
         <div id="numWordsDiv">Количество строк: {% if active %} <input type="text" name="numWords" id="numWords" checked="checked" value="10"> {% else %} <input type="text" name="numWords" id="numWordsDisabled" checked="checked" value="10" disabled> {% endif %}
         </div>
         <input type="submit" value="Начать!" onclick="" id="start"></form>
-
+    
+      <div id="particle-container">
+	<div class="particle"></div>
+	<div class="particle"></div>
+	<div class="particle"></div>
+	<div class="particle"></div>
+	<div class="particle"></div>
+	<div class="particle"></div>
+	<div class="particle"></div>
+	<div class="particle"></div>
+	<div class="particle"></div>
+	<div class="particle"></div>
+	<div class="particle"></div>
+	<div class="particle"></div>
+	<div class="particle"></div>
+	<div class="particle"></div>
+	<div class="particle"></div>
+	<div class="particle"></div>
+	<div class="particle"></div>
+	<div class="particle"></div>
+	<div class="particle"></div>
+	<div class="particle"></div>
+	<div class="particle"></div>
+	<div class="particle"></div>
+	<div class="particle"></div>
+	<div class="particle"></div>
+	<div class="particle"></div>
+	<div class="particle"></div>
+	<div class="particle"></div>
+	<div class="particle"></div>
+	<div class="particle"></div>
+	<div class="particle"></div>
+</div>  
+        
     {% block content %}
     {% if current %}
     {% for run in runs %}
@@ -51,7 +84,6 @@
         </script>
         <div class="time" id="time"></div>
         <div class="speed" id="speed"></div>
-
     </div>
     {% elif runs %}
     {% for run in runs %}
