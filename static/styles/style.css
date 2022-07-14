@@ -1,0 +1,99 @@
+body {
+    font-family:monospace;
+}
+
+#spacesDiv, #numWordsDiv, #fNameDiv {
+    padding-bottom:1em;
+}
+
+#numWords {
+    width:3em;
+    text-align:right;
+    font-family:monospace;
+    font-size:100%;
+}
+
+#fNameDiv select {
+    font-family:monospace;
+    font-size:100%;
+}
+
+#mainCont {
+    width:50em;
+    text-align:center;
+    margin:auto;
+    padding-top:50px;
+}
+
+#start {
+    margin:auto;
+    font-family:monospace;
+    font-size:150%;
+}
+
+.run {
+    border: 2px solid #666666;
+    width:100%;
+    padding:5px;
+    margin:2px;
+    position:relative;
+    text-align:left;
+}
+
+.sample, .ouf, #input {
+    font-size:100%;
+    border:2px;
+}
+
+#input {
+    width:100%;
+    font-family:monospace;
+}
+
+.ok {
+    color:green;
+}
+
+.fail {
+    color:red;
+}
+
+.speed, .time {
+    position:absolute;
+    right:3px;
+}
+
+.speed {
+    bottom:3px;
+}
+
+.time {
+    top:3px;
+}
+
+.final {
+    margin-top:3px;
+    margin-bottom:5px;
+}
+
+pre {
+    display:inline;
+    margin:0px;
+    padding:0px;
+}
+
+#footer {
+    border-top: 1px solid #555555;
+    padding-top: 5px;
+    margin-top: 60px;
+    font-size: 70%;
+}
+
+#footer p {
+    padding-top:3px;
+    margin:0px;
+}
+
+pre.bad {
+    background:#ffff00;
+}
