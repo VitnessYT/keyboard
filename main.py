@@ -1,6 +1,7 @@
 import random
 from time import time
 from flask import Flask, render_template, request
+import os
 
 def checkLine(sample, line, start):
     if sample.split() == line.split():
@@ -71,4 +72,4 @@ def index():
     return render_template("index.html", active=True)
 
 
-app.run()
+app.run(port=int(os.environ.get('PORT', 5000)))
