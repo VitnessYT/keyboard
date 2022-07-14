@@ -1,7 +1,6 @@
 import random
 from time import time
 from flask import Flask, render_template, request
-import os
 
 def checkLine(sample, line, start):
     if sample.split() == line.split():
