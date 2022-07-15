@@ -6,7 +6,7 @@
 </head>
 <body style="">
 <div id="mainCont">
-    <form method="post" action="/">
+    <form method="post" action="/data">
         <div id="fNameDiv">Словарь: {% if active %} <select name="fName" id="fName">{% else %} <select name="fName" id="fNameDisabled" disabled> {% endif %}
             <optgroup label="Обычный">
                 <option value="python" selected="selected">Python</option>
@@ -22,7 +22,7 @@
         <div id="numWordsDiv">Количество строк: {% if active %} <input type="text" name="numWords" id="numWords" checked="checked" value="10"> {% else %} <input type="text" name="numWords" id="numWordsDisabled" checked="checked" value="10" disabled> {% endif %}
         </div>
         <input type="submit" value="Начать!" onclick="" id="start"></form>
-        
+
     {% block content %}
     {% if current %}
     {% for run in runs %}
@@ -37,7 +37,7 @@
         <div class="sample">
             <pre class="sample">{{ current }}</pre>
         </div>
-        <form method="post" action="/">
+        <form method="post" action="/data">
             <input type="text" name="input" id="input" onpaste="return false;" autocomplete="off">
         </form>
         <script>
@@ -46,8 +46,14 @@
             };
         </script>
         <script>
-            document.getElementById("inputform").addEventListener("submit", event => event.preventDefault(); event.stopPropagation();
-            document.getElementById("input").addEventListener("submit", event => event.preventDefault(); event.stopPropagation();
+            document.getElementById("inputform").addEventListener("submit", function(event){
+        event.preventDefault();
+        event.stopPropagation();
+});
+            document.getElementById("input").addEventListener("submit", function(event){
+        event.preventDefault();
+        event.stopPropagation();
+});
         </script>
         <div class="time" id="time"></div>
         <div class="speed" id="speed"></div>
@@ -69,7 +75,7 @@
             ошибками: {{ best[1] }}<br>Общая длина: {{ best[2] }}<br>Общее время: {{ best[3] }} с<br>Средняя
             скорость: {{ best[4] }} символов/мин<br></div>
     </div>
-    <form method="post" action="/"> <input type="submit" value="Повторить" onclick="" id="start"> </form>
+    <form method="post" action="/data"> <input type="submit" value="Повторить" onclick="" id="start"> </form>
     {% endif %}
     {% endblock %}
     <br><br><br><br><br><br><br><br>Тут типа таблица лидеров. Когда-то будет.
