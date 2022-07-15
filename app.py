@@ -83,5 +83,6 @@ def index():
         return render_template("index.html", active=False, runs=runs, result=[len([x for x in runs if x[-1] == "ok"]), len([x for x in runs if x[-1] == "fail"]), sum(len(x[0]) for x in runs), round(sum(x[2] for x in runs), 1), round(sum(x[3] for x in runs) / numWords, 2)], best=best)
     return render_template("index.html", active=True)
 
-if __name__ == '__main__':
-    app.run(port=int(os.environ.get('PORT', 5000)))
+if __name__ == "__main__":
+    from waitress import serve
+    serve(app, host="https://keyboardup.herokuapp.com/", port=int(os.environ.get('PORT', 8080)))
