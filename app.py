@@ -1,6 +1,6 @@
 import random
 from time import time
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 import os
 
 def checkLine(sample, line, start):
@@ -24,12 +24,6 @@ def checkLine(sample, line, start):
 
 
 app = Flask(__name__)
-runs = []
-current = ""
-start = 0
-numWords = 10
-fName = "python"
-best = [0, 0, 0, 0, 0]
 
 """
 D = {}
@@ -55,11 +49,31 @@ D = {
 "pascal": ["var i:integer;", "a:array[1..100] of integer;", "f:text;", "ok:boolean;", "x:extended;", "s:string;", "record x,y:integer; end;", "for i:=1 to n do begin", "read(n,m);", "write(a,' ',b);", "if a mod 2=0 then begin", "x:=n div 2 + 1;", "for i:=n downto 1 do", "if (a=0) and (b=0) then", "if (a=0) or (b=0) then", "end else begin", "while i*i<n do", "while true do begin", "repeat until false;", "var gr:array[1..100,1..100] of integer;", "assign(f,'input.txt');", "reset(f);", "rewrite(f);", "close(f);", "n:=inttostr(s);", "s:=strtoint(n);", "if sqr(a) + sqr(b) = sqr(c) then", "writeln(sqrt(a));", "if a=0 then break;", "if s='' then continue;", "assert(res=0,'Wrong res');", "procedure add(u,v:integer);", "procedure dfs(u:integer);", "if was[i]<>0 then exit;", "function rec(i:integer):integer;", "if l>=r then exit;", "if s[i]=' ' then inc(d);", "while r-l>1 do begin", "function less(a,b:tpoint):boolean;"]
 }
 
+best = [0, 0, 0, 0, 0]
+redirected = False
+runs = []
+current = ""
+start = 0
+numWords = 10
+fName = "python"
 
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/")
+@app.route("/index")
 def index():
-    global runs, current, start, numWords, fName, best
+    global runs, current, start, numWords, fName, best, redirected
+    if not redirected:
+        runs = []
+        current = ""
+        start = 0
+        numWords = 10
+        fName = "python"
+    redirected = False
+    return render_template("index.html", current=current, active=not bool(runs), runs=runs, result=[len([x for x in runs if x[-1] == "ok"]), len([x for x in runs if x[-1] == "fail"]), sum(len(x[0]) for x in runs), round(sum(x[2] for x in runs), 1), round(sum(x[3] for x in runs) / numWords, 2)], best=best)
+
+@app.route("/data", methods=["POST"])
+def data():
+    global runs, current, start, numWords, fName, best, redirected
     if request.method == 'POST':
         if "fName" in request.form:
             runs = []
@@ -72,7 +86,8 @@ def index():
         if len(runs) < numWords:
             current = random.choice(D[fName])
             start = time()
-            return render_template("index.html", active=False, runs=runs, current=current)
+            redirected = True
+            return redirect(url_for('index'))
         result = [len([x for x in runs if x[-1] == "ok"])]
         result.append(len(runs) - result[0])
         result.append(sum(len(x[0]) for x in runs))
@@ -80,8 +95,8 @@ def index():
         result.append(round(sum(x[3] for x in runs) / numWords, 2))
         if result[4] > best[4]:
             best = result
-        return render_template("index.html", active=False, runs=runs, result=[len([x for x in runs if x[-1] == "ok"]), len([x for x in runs if x[-1] == "fail"]), sum(len(x[0]) for x in runs), round(sum(x[2] for x in runs), 1), round(sum(x[3] for x in runs) / numWords, 2)], best=best)
-    return render_template("index.html", active=True)
+        redirected = True
+        return redirect(url_for('index'))
 
 if __name__ == "__main__":
     from waitress import serve
