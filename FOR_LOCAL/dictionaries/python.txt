@@ -1,0 +1,75 @@
+a = int(input())
+from math import *
+if a != 0:
+for i in range(n):
+for x in a:
+while a != 0:
+print(a, b, sep="")
+a = [0] * n
+a = [0 for i in range(n)]
+a, b = map(int, input().split())
+f = True
+f = False
+if a % 2 == 0:
+if a == 0 and b == 0:
+elif a == 0 or b == 0:
+while i * i <= n:
+if a ** 2 + b ** 2 == c ** 2:
+print(sqrt(a))
+assert a != 0
+def add(u, v):
+if was[i] != 0:
+return
+while r - l > 1:
+def less(a, b):
+for i in range(1, n, 2):
+print("Hello world")
+def max(a, b):
+break
+continue
+while i <= x ** 2:
+print(0.5 * b * h)
+print(n // 60 % 24, n - (n // 60 * 60))
+print(n // 60 % 24, n % 60)
+print("The next number for the number", x, "is", x + 1)
+print(f"The next number for the number {x} is {x + 1}")
+print("The next number for the number " + str(x) + " is " + str(x + 1))
+print(min(a, b))
+return (x1 + y1 + x2 + y2) % 2 == 0
+return year % 4 == 0 and year % 100 != 0 or year % 400 == 0
+print(*list, sep="\n")
+numbers = list(range(100))
+dict = {chr(i): 0 for i in range(ord("A"), ord("B") + 1)}
+print(((n * (n + 1)) / 2) ** 2)
+from itertools import combinations
+import re
+print(string.count("333") / string.count("777"))
+print(string[::-1])
+print(*string, sep="&")
+if n - j - 1 == i:
+def swap_columns(a, i, j):
+from time import time, sleep
+print([i ** 2 for i in range(10)])
+a, b, c = int(input()), int(input()), int(input())
+print((3 * x ** 3 + 18 * x ** 2) * x + 12 * x ** 2 - 5)
+print("{:06d}".format(a+b))
+x = random.randint(1, 4)
+A = [1, 2, 3]
+window = tkinter.Tk()
+def sum(a, b):
+return a + b
+file = open("input.txt", "r")
+with open("output.txt", "w") as file:
+print(list, file=file)
+# TODO:
+del list[5]
+if "*" in text:
+A.remove(number)
+A.extend(list)
+for char in string:
+print(string.isdigit())
+A.sort(key=len, reverse=True)
+print(sorted(A, reverse=True))
+avg = sum(A) / len(A)
+"""This is docstring"""
+# This is comment 

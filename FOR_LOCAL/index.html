@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style>
+        body {
+    font-family:monospace;
+}
+
+#spacesDiv, #numWordsDiv, #fNameDiv {
+    padding-bottom:1em;
+}
+
+#numWords {
+    width:3em;
+    text-align:right;
+    font-family:monospace;
+    font-size:100%;
+}
+
+#fNameDiv select {
+    font-family:monospace;
+    font-size:100%;
+}
+
+#mainCont {
+    width:50em;
+    text-align:center;
+    margin:auto;
+    padding-top:50px;
+}
+
+#start {
+    margin:auto;
+    font-family:monospace;
+    font-size:150%;
+}
+
+.run {
+    border: 2px solid #666666;
+    width:100%;
+    padding:5px;
+    margin:2px;
+    position:relative;
+    text-align:left;
+}
+
+.sample, .ouf, #input {
+    font-size:100%;
+    border:2px;
+}
+
+#input {
+    width:100%;
+    font-family:monospace;
+}
+
+.ok {
+    color:green;
+}
+
+.fail {
+    color:red;
+}
+
+.speed, .time {
+    position:absolute;
+    right:3px;
+}
+
+.speed {
+    bottom:3px;
+}
+
+.time {
+    top:3px;
+}
+
+.final {
+    margin-top:3px;
+    margin-bottom:5px;
+}
+
+pre {
+    display:inline;
+    margin:0px;
+    padding:0px;
+}
+
+#footer {
+    border-top: 1px solid #555555;
+    padding-top: 5px;
+    margin-top: 60px;
+    font-size: 70%;
+}
+
+#footer p {
+    padding-top:3px;
+    margin:0px;
+}
+
+pre.bad {
+    background:#ffff00;
+}
+    </style>
+    <link rel="stylesheet" href="/public/styles/style.css">
+</head>
+<body style="">
+<div id="mainCont">
+    <form method="post" action="/data">
+        <div id="fNameDiv">Словарь: {% if active %} <select name="fName" id="fName">{% else %} <select name="fName" id="fNameDisabled" disabled> {% endif %}
+            <optgroup label="Обычный">
+                {% if d == "python" %} <option value="python" selected>Python</option> {% else %} <option value="python">Python</option> {% endif %}
+                {% if d == "pascal" %} <option value="pascal" selected>Pascal</option> {% else %} <option value="pascal">Pascal</option> {% endif %}
+                {% if d == "cpp" %} <option value="cpp" selected>C++</option> {% else %} <option value="cpp">C++</option> {% endif %}
+                {% if d == "java" %} <option value="java" selected>Java</option> {% else %} <option value="java">Java</option> {% endif %}
+            </optgroup>
+            <optgroup label="Усложненный">
+                {% if d == "python+" %} <option value="python+" selected>Python</option> {% else %} <option value="python+">Python</option> {% endif %}
+                {% if d == "cpp+" %} <option value="cpp+" selected>C++</option> {% else %} <option value="cpp+">C++</option> {% endif %}
+            </optgroup>
+        </select></div>
+        <div id="numWordsDiv">Количество строк: {% if active %} <input type="text" name="numWords" id="numWords" checked="checked" value="{{ n }}"> {% else %} <input type="text" name="numWords" id="numWordsDisabled" checked="checked" value="{{ n }}" disabled> {% endif %}
+        </div>
+        <input type="submit" value="Начать!" onclick="" id="start"></form>
+
+    {% block content %}
+    {% if current %}
+    {% for run in runs %}
+    <div class="run">
+        <div class="sample"><pre class="sample">{{ run[0] }}</pre>&nbsp;</div>
+        <div class="ouf {{ run[4] }}">{% for type, value in run[1] %}<pre class="{{ type }}">{{ value }}</pre>{% endfor %}&nbsp;</div>
+        <div class="time {{ run[4] }}">{{ run[2] }} секунд</div>
+        <div class="speed {{ run[4] }}">{{ run[3] }} символов/мин</div>
+    </div>
+    {% endfor %}
+    <div class="run" id="current">
+        <div class="sample">
+            <pre class="sample">{{ current }}</pre>
+        </div>
+        <form method="post" action="/data">
+            <input type="text" name="input" id="input" onpaste="return false;" autocomplete="off">
+        </form>
+        <script>
+            window.onload = function () {
+                document.getElementById("input").focus();
+            };
+        </script>
+        <div class="time" id="time"></div>
+        <div class="speed" id="speed"></div>
+    </div>
+    {% elif runs %}
+    {% for run in runs %}
+    <div class="run">
+        <div class="sample"><pre class="sample">{{ run[0] }}</pre>&nbsp;</div>
+        <div class="ouf {{ run[4] }}">{% for type, value in run[1] %}<pre class="{{ type }}">{{ value }}</pre>{% endfor %}&nbsp;</div>
+        <div class="time {{ run[4] }}">{{ run[2] }} секунд</div>
+        <div class="speed {{ run[4] }}">{{ run[3] }} символов/мин</div>
+    </div>
+    {% endfor %}
+    <div class="final">
+        <div class="last" style="float: left;">Последний результат: <br>Правильных строк: {{ result[0] }}<br>Строк с
+            ошибками: {{ result[1] }}<br>Общая длина: {{ result[2] }}<br>Общее время: {{ result[3] }} с<br>Средняя
+            скорость: {{ result[4] }} символов/мин<br></div>
+        <div class="best" style="float: right">Лучший результат: <br>Правильных строк: {{ best[0] }}<br>Строк с
+            ошибками: {{ best[1] }}<br>Общая длина: {{ best[2] }}<br>Общее время: {{ best[3] }} с<br>Средняя
+            скорость: {{ best[4] }} символов/мин<br></div>
+    </div>
+    <form method="post" action="/data"> <input type="submit" value="Повторить" onclick="" id="start"> </form>
+    {% endif %}
+    {% endblock %}
+    <br><br><br><br><br><br><br><br>Тут типа таблица лидеров. Когда-то будет.
+</div>
+<div id="footer"><p>2022 Vitness</p>
+    <p>Contact me in Discord: <a
+            href="https://discordapp.com/users/656919778572632094">Vitness#5633</a>
+    <p><a href="https://github.com/VitnessYT">https://github.com/VitnessYT</a></p></div>
+</body>
+</html>
